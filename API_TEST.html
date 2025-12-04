@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -33,108 +33,129 @@
             text-align: center;
         }
 
-        /* GPU Monitor Styles */
-        .gpu-monitor {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        /* System Monitor Container */
+        .system-monitors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Monitor Card Styles */
+        .monitor-card {
             padding: 20px;
             border-radius: 12px;
-            margin-bottom: 25px;
             color: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .gpu-monitor h2 {
+        .gpu-monitor {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .ram-monitor {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .cpu-monitor {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+
+        .monitor-card h2 {
             font-size: 18px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
         }
 
-        .gpu-grid {
+        .monitor-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            gap: 12px;
         }
 
-        .gpu-stat {
+        .stat-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             backdrop-filter: blur(10px);
         }
 
-        .gpu-stat-label {
-            font-size: 12px;
+        .stat-label {
+            font-size: 11px;
             opacity: 0.8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .gpu-stat-value {
-            font-size: 24px;
+        .stat-value {
+            font-size: 22px;
             font-weight: bold;
         }
 
-        .gpu-stat-sub {
-            font-size: 14px;
+        .stat-sub {
+            font-size: 13px;
             opacity: 0.7;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
-        .gpu-progress-bar {
+        .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            margin-top: 8px;
+            border-radius: 3px;
+            margin-top: 6px;
             overflow: hidden;
         }
 
-        .gpu-progress-fill {
+        .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #4CAF50 0%, #FFC107 70%, #F44336 100%);
             transition: width 0.5s ease;
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
-        .gpu-status {
+        .status-badge {
             display: inline-block;
             padding: 4px 10px;
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
         }
 
-        .gpu-status.online {
+        .status-badge.online {
             background: #4CAF50;
         }
 
-        .gpu-status.offline {
+        .status-badge.offline {
             background: #F44336;
         }
 
-        .gpu-refresh-btn {
+        .refresh-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: background 0.3s;
-            margin-top: 10px;
+            margin-top: 12px;
+            width: 100%;
         }
 
-        .gpu-refresh-btn:hover {
+        .refresh-btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
 
-        .gpu-error {
+        .monitor-error {
             background: rgba(244, 67, 54, 0.2);
             padding: 10px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             border: 1px solid rgba(244, 67, 54, 0.5);
+            margin-top: 10px;
         }
         
         .form-group {
@@ -375,48 +396,94 @@
     <div class="container">
         <h1>🔍 RAG System API Test</h1>
 
-        <!-- GPU Monitor Section -->
-        <div class="gpu-monitor" id="gpuMonitor">
-            <h2>
-                🎮 GPU Monitor 
-                <span id="gpuStatus" class="gpu-status online">Online</span>
-            </h2>
-            <div id="gpuContent">
-                <div class="gpu-grid">
-                    <div class="gpu-stat">
-                        <div class="gpu-stat-label">VRAM Usage</div>
-                        <div class="gpu-stat-value" id="vramUsed">--</div>
-                        <div class="gpu-stat-sub"*6 id="vramTotal"*6>-- / -- GB</div>
-                        <div class="gpu-progress-bar">
-                            <div class="gpu-progress-fill" id="vramProgress" style="width: 0%"></div>
+        <!-- System Monitors Grid -->
+        <div class="system-monitors">
+            <!-- GPU Monitor -->
+            <div class="monitor-card gpu-monitor" id="gpuMonitor">
+                <h2>
+                    🎮 GPU Monitor 
+                    <span id="gpuStatus" class="status-badge online">Online</span>
+                </h2>
+                <div id="gpuContent" class="monitor-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">VRAM Usage</div>
+                        <div class="stat-value" id="vramUsed">--</div>
+                        <div class="stat-sub" id="vramTotal">-- / -- GB</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="vramProgress" style="width: 0%"></div>
                         </div>
                     </div>
 
-                    <div class="gpu-stat">
-                        <div class="gpu-stat-label">GPU Utilization</div>
-                        <div class="gpu-stat-value" id="gpuUtil">--%</div>
-                        <div class="gpu-progress-bar">
-                            <div class="gpu-progress-fill" id="gpuUtilProgress" style="width: 0%"></div>
+                    <div class="stat-item">
+                        <div class="stat-label">GPU Utilization</div>
+                        <div class="stat-value" id="gpuUtil">--%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="gpuUtilProgress" style="width: 0%"></div>
                         </div>
                     </div>
 
-                    <div class="gpu-stat">
-                        <div class="gpu-stat-label">Memory Utilization</div>
-                        <div class="gpu-stat-value" id="memUtil">--%</div>
-                        <div class="gpu-progress-bar">
-                            <div class="gpu-progress-fill" id="memUtilProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="gpu-stat">
-                        <div class="gpu-stat-label">Temperature</div>
-                        <div class="gpu-stat-value" id="gpuTemp">--°C</div>
+                    <div class="stat-item">
+                        <div class="stat-label">Temperature</div>
+                        <div class="stat-value" id="gpuTemp">--°C</div>
                     </div>
                 </div>
-                <button class="gpu-refresh-btn" onclick="fetchGPUStats()">🔄 Refresh</button>
+                <div id="gpuError" class="monitor-error" style="display: none;"></div>
             </div>
-            <div id="gpuError" class="gpu-error" style="display: none;"></div>
+
+            <!-- RAM Monitor -->
+            <div class="monitor-card ram-monitor">
+                <h2>
+                    💾 RAM Monitor
+                    <span id="ramStatus" class="status-badge online">Online</span>
+                </h2>
+                <div id="ramContent" class="monitor-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Memory Usage</div>
+                        <div class="stat-value" id="ramUsed">--</div>
+                        <div class="stat-sub" id="ramTotal">-- / -- GB</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="ramProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-label">Available Memory</div>
+                        <div class="stat-value" id="ramFree">-- GB</div>
+                        <div class="stat-sub">Free for use</div>
+                    </div>
+                </div>
+                <div id="ramError" class="monitor-error" style="display: none;"></div>
+            </div>
+
+            <!-- CPU Monitor -->
+            <div class="monitor-card cpu-monitor">
+                <h2>
+                    ⚡ CPU Monitor
+                    <span id="cpuStatus" class="status-badge online">Online</span>
+                </h2>
+                <div id="cpuContent" class="monitor-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">CPU Usage</div>
+                        <div class="stat-value" id="cpuUsage">--%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="cpuProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-label">CPU Cores</div>
+                        <div class="stat-value" id="cpuCores">--</div>
+                        <div class="stat-sub">Available cores</div>
+                    </div>
+                </div>
+                <div id="cpuError" class="monitor-error" style="display: none;"></div>
+            </div>
         </div>
+
+        <!-- Refresh Button for All Monitors -->
+        <button class="refresh-btn" onclick="fetchSystemStats()" style="width: auto; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+            🔄 Refresh All Stats
+        </button>
         
         <div class="info">
             ✨ Enter your question and select a department or enter a custom key to get an answer from the system
@@ -537,62 +604,88 @@
     <script>
         const API_BASE_URL = 'https://azshjdxvzz63mt-8005.proxy.runpod.net';
 
-        // GPU Monitoring Functions
-        async function fetchGPUStats() {
+        // System Monitoring Functions
+        async function fetchSystemStats() {
             try {
-                const response = await fetch(`${API_BASE_URL}/gpu/stats`);
-                if (!response.ok) throw new Error('Failed to fetch GPU stats');
+                const response = await fetch(`${API_BASE_URL}/system/stats`);
+                if (!response.ok) throw new Error('Failed to fetch system stats');
                 
                 const data = await response.json();
-                updateGPUDisplay(data);
-                document.getElementById('gpuStatus').className = 'gpu-status online';
+                updateSystemDisplay(data);
+                
+                // Update all status badges to online
+                document.getElementById('gpuStatus').className = 'status-badge online';
                 document.getElementById('gpuStatus').textContent = 'Online';
-                document.getElementById('gpuContent').style.display = 'block';
+                document.getElementById('ramStatus').className = 'status-badge online';
+                document.getElementById('ramStatus').textContent = 'Online';
+                document.getElementById('cpuStatus').className = 'status-badge online';
+                document.getElementById('cpuStatus').textContent = 'Online';
+                
+                // Hide error messages
                 document.getElementById('gpuError').style.display = 'none';
+                document.getElementById('ramError').style.display = 'none';
+                document.getElementById('cpuError').style.display = 'none';
             } catch (error) {
-                console.error('GPU stats error:', error);
-                document.getElementById('gpuStatus').className = 'gpu-status offline';
+                console.error('System stats error:', error);
+                
+                // Update all status badges to offline
+                document.getElementById('gpuStatus').className = 'status-badge offline';
                 document.getElementById('gpuStatus').textContent = 'Offline';
-                document.getElementById('gpuError').textContent = '⚠️ Unable to fetch GPU stats: ' + error.message;
+                document.getElementById('ramStatus').className = 'status-badge offline';
+                document.getElementById('ramStatus').textContent = 'Offline';
+                document.getElementById('cpuStatus').className = 'status-badge offline';
+                document.getElementById('cpuStatus').textContent = 'Offline';
+                
+                // Show error message
+                const errorMsg = '⚠️ Unable to fetch system stats: ' + error.message;
+                document.getElementById('gpuError').textContent = errorMsg;
                 document.getElementById('gpuError').style.display = 'block';
-                document.getElementById('gpuContent').style.display = 'none';
             }
         }
 
-        function updateGPUDisplay(data) {
-            // VRAM
-            document.getElementById('vramUsed').textContent = `${data.memory.used_percent}%`;
-            document.getElementById('vramTotal').textContent = `${data.memory.used_gb} / ${data.memory.total_gb} GB`;
-            document.getElementById('vramProgress').style.width = `${data.memory.used_percent}%`;
+        function updateSystemDisplay(data) {
+            // Update GPU stats
+            if (data.gpu) {
+                document.getElementById('vramUsed').textContent = `${data.gpu.memory.used_percent}%`;
+                document.getElementById('vramTotal').textContent = `${data.gpu.memory.used_gb} / ${data.gpu.memory.total_gb} GB`;
+                document.getElementById('vramProgress').style.width = `${data.gpu.memory.used_percent}%`;
+                document.getElementById('gpuUtil').textContent = `${data.gpu.utilization.gpu_percent}%`;
+                document.getElementById('gpuUtilProgress').style.width = `${data.gpu.utilization.gpu_percent}%`;
+                document.getElementById('gpuTemp').textContent = `${data.gpu.temperature_celsius}°C`;
+            }
 
-            // GPU Utilization
-            document.getElementById('gpuUtil').textContent = `${data.utilization.gpu_percent}%`;
-            document.getElementById('gpuUtilProgress').style.width = `${data.utilization.gpu_percent}%`;
+            // Update RAM stats
+            if (data.ram) {
+                document.getElementById('ramUsed').textContent = `${data.ram.used_percent}%`;
+                document.getElementById('ramTotal').textContent = `${data.ram.used_gb} / ${data.ram.total_gb} GB`;
+                document.getElementById('ramProgress').style.width = `${data.ram.used_percent}%`;
+                document.getElementById('ramFree').textContent = `${data.ram.free_gb} GB`;
+            }
 
-            // Memory Utilization
-            document.getElementById('memUtil').textContent = `${data.utilization.memory_percent}%`;
-            document.getElementById('memUtilProgress').style.width = `${data.utilization.memory_percent}%`;
-
-            // Temperature
-            document.getElementById('gpuTemp').textContent = `${data.temperature_celsius}°C`;
+            // Update CPU stats
+            if (data.cpu) {
+                document.getElementById('cpuUsage').textContent = `${data.cpu.usage_percent}%`;
+                document.getElementById('cpuProgress').style.width = `${data.cpu.usage_percent}%`;
+                document.getElementById('cpuCores').textContent = data.cpu.cores;
+            }
         }
 
-        // Auto-refresh GPU stats every 2 seconds
-        let gpuRefreshInterval;
-        function startGPUMonitoring() {
-            fetchGPUStats(); // Initial fetch
-            gpuRefreshInterval = setInterval(fetchGPUStats, 2000);
+        // Auto-refresh system stats every 2 seconds
+        let systemRefreshInterval;
+        function startSystemMonitoring() {
+            fetchSystemStats(); // Initial fetch
+            systemRefreshInterval = setInterval(fetchSystemStats, 2000);
         }
 
-        function stopGPUMonitoring() {
-            if (gpuRefreshInterval) {
-                clearInterval(gpuRefreshInterval);
+        function stopSystemMonitoring() {
+            if (systemRefreshInterval) {
+                clearInterval(systemRefreshInterval);
             }
         }
 
         // Start monitoring on page load
-        window.addEventListener('load', startGPUMonitoring);
-        window.addEventListener('beforeunload', stopGPUMonitoring);
+        window.addEventListener('load', startSystemMonitoring);
+        window.addEventListener('beforeunload', stopSystemMonitoring);
 
         // Department checkboxes
         const deptCheckboxes = document.querySelectorAll('.dept-checkbox-item input[type="checkbox"]');
@@ -880,4 +973,3 @@
     </script>
 </body>
 </html>
-
