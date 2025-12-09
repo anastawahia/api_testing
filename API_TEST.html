@@ -29,133 +29,99 @@
         
         h1 {
             color: #667eea;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        /* System Monitor Container */
-        .system-monitors {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* Compact System Monitor */
+        .system-monitor-compact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 25px;
-        }
-
-        /* Monitor Card Styles */
-        .monitor-card {
-            padding: 20px;
-            border-radius: 12px;
             color: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .gpu-monitor {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        }
-
-        .ram-monitor {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-
-        .cpu-monitor {
-            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-        }
-
-        .monitor-card h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .monitor-stats {
+        .monitor-grid {
             display: grid;
-            gap: 12px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
 
-        .stat-item {
+        .monitor-item {
             background: rgba(255, 255, 255, 0.1);
             padding: 12px;
             border-radius: 8px;
             backdrop-filter: blur(10px);
+            text-align: center;
         }
 
-        .stat-label {
+        .monitor-label {
             font-size: 11px;
             opacity: 0.8;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .stat-value {
-            font-size: 22px;
+        .monitor-value {
+            font-size: 20px;
             font-weight: bold;
+            margin-bottom: 4px;
         }
 
-        .stat-sub {
-            font-size: 13px;
+        .monitor-sub {
+            font-size: 11px;
             opacity: 0.7;
-            margin-top: 4px;
         }
 
-        .progress-bar {
+        .monitor-progress {
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
+            border-radius: 2px;
             margin-top: 6px;
             overflow: hidden;
         }
 
-        .progress-fill {
+        .monitor-progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #4CAF50 0%, #FFC107 70%, #F44336 100%);
             transition: width 0.5s ease;
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
-        .status-badge {
+        .status-indicator {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
         }
 
-        .status-badge.online {
+        .status-indicator.online {
             background: #4CAF50;
         }
 
-        .status-badge.offline {
+        .status-indicator.offline {
             background: #F44336;
         }
 
-        .refresh-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: background 0.3s;
-            margin-top: 12px;
-            width: 100%;
-        }
-
-        .refresh-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .monitor-error {
             background: rgba(244, 67, 54, 0.2);
-            padding: 10px;
+            padding: 8px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 12px;
             border: 1px solid rgba(244, 67, 54, 0.5);
             margin-top: 10px;
+            text-align: center;
         }
         
         .form-group {
@@ -169,7 +135,7 @@
             font-weight: bold;
         }
         
-        input, textarea, select {
+        input, select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -178,41 +144,78 @@
             transition: border-color 0.3s;
         }
         
-        input:focus, textarea:focus, select:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #667eea;
         }
-        
-        textarea {
-            min-height: 80px;
-            resize: vertical;
+
+        /* Query Box with Integrated Button */
+        .query-box-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .query-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 60px 12px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
             font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
         }
-        
-        .token-mode {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
+
+        .query-textarea:focus {
+            outline: none;
+            border-color: #667eea;
         }
-        
-        .token-mode label {
+
+        .send-button {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            cursor: pointer;
-            font-weight: normal;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
-        
-        .token-mode input[type="radio"] {
-            width: auto;
-            margin-right: 8px;
+
+        .send-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
         }
-        
-        .token-input-group {
-            display: none;
+
+        .send-button:active {
+            transform: scale(0.95);
         }
-        
-        .token-input-group.active {
-            display: block;
+
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .send-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .query-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
         }
 
         /* Admin Department Selection Styles */
@@ -289,33 +292,6 @@
             font-size: 12px;
         }
         
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
         .result {
             margin-top: 30px;
             padding: 20px;
@@ -390,152 +366,98 @@
             font-size: 12px;
             margin-left: 8px;
         }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔍 RAG System API Test</h1>
 
-        <!-- System Monitors Grid -->
-        <div class="system-monitors">
-            <!-- GPU Monitor -->
-            <div class="monitor-card gpu-monitor" id="gpuMonitor">
-                <h2>
-                    🎮 GPU Monitor 
-                    <span id="gpuStatus" class="status-badge online">Online</span>
-                </h2>
-                <div id="gpuContent" class="monitor-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">VRAM Usage</div>
-                        <div class="stat-value" id="vramUsed">--</div>
-                        <div class="stat-sub" id="vramTotal">-- / -- GB</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="vramProgress" style="width: 0%"></div>
-                        </div>
+        <!-- Compact System Monitor -->
+        <div class="system-monitor-compact">
+            <div class="monitor-grid">
+                <!-- GPU -->
+                <div class="monitor-item">
+                    <div class="monitor-label">
+                        <span class="status-indicator online" id="gpuStatusDot"></span>
+                        🎮 GPU
                     </div>
-
-                    <div class="stat-item">
-                        <div class="stat-label">GPU Utilization</div>
-                        <div class="stat-value" id="gpuUtil">--%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="gpuUtilProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-item">
-                        <div class="stat-label">Temperature</div>
-                        <div class="stat-value" id="gpuTemp">--°C</div>
+                    <div class="monitor-value" id="gpuUtilCompact">--%</div>
+                    <div class="monitor-sub" id="vramCompact">-- / -- GB</div>
+                    <div class="monitor-progress">
+                        <div class="monitor-progress-fill" id="vramProgressCompact" style="width: 0%"></div>
                     </div>
                 </div>
-                <div id="gpuError" class="monitor-error" style="display: none;"></div>
-            </div>
 
-            <!-- RAM Monitor -->
-            <div class="monitor-card ram-monitor">
-                <h2>
-                    💾 RAM Monitor
-                    <span id="ramStatus" class="status-badge online">Online</span>
-                </h2>
-                <div id="ramContent" class="monitor-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Memory Usage</div>
-                        <div class="stat-value" id="ramUsed">--</div>
-                        <div class="stat-sub" id="ramTotal">-- / -- GB</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="ramProgress" style="width: 0%"></div>
-                        </div>
+                <!-- RAM -->
+                <div class="monitor-item">
+                    <div class="monitor-label">
+                        <span class="status-indicator online" id="ramStatusDot"></span>
+                        💾 RAM
                     </div>
-
-                    <div class="stat-item">
-                        <div class="stat-label">Available Memory</div>
-                        <div class="stat-value" id="ramFree">-- GB</div>
-                        <div class="stat-sub">Free for use</div>
+                    <div class="monitor-value" id="ramUsedCompact">--%</div>
+                    <div class="monitor-sub" id="ramTotalCompact">-- / -- GB</div>
+                    <div class="monitor-progress">
+                        <div class="monitor-progress-fill" id="ramProgressCompact" style="width: 0%"></div>
                     </div>
                 </div>
-                <div id="ramError" class="monitor-error" style="display: none;"></div>
-            </div>
 
-            <!-- CPU Monitor -->
-            <div class="monitor-card cpu-monitor">
-                <h2>
-                    ⚡ CPU Monitor
-                    <span id="cpuStatus" class="status-badge online">Online</span>
-                </h2>
-                <div id="cpuContent" class="monitor-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">CPU Usage</div>
-                        <div class="stat-value" id="cpuUsage">--%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="cpuProgress" style="width: 0%"></div>
-                        </div>
+                <!-- CPU -->
+                <div class="monitor-item">
+                    <div class="monitor-label">
+                        <span class="status-indicator online" id="cpuStatusDot"></span>
+                        ⚡ CPU
                     </div>
-
-                    <div class="stat-item">
-                        <div class="stat-label">CPU Cores</div>
-                        <div class="stat-value" id="cpuCores">--</div>
-                        <div class="stat-sub">Available cores</div>
+                    <div class="monitor-value" id="cpuUsageCompact">--%</div>
+                    <div class="monitor-sub" id="cpuCoresCompact">-- cores</div>
+                    <div class="monitor-progress">
+                        <div class="monitor-progress-fill" id="cpuProgressCompact" style="width: 0%"></div>
                     </div>
                 </div>
-                <div id="cpuError" class="monitor-error" style="display: none;"></div>
             </div>
+            <div id="systemError" class="monitor-error" style="display: none;"></div>
         </div>
-
-        <!-- Refresh Button for All Monitors -->
-        <button class="refresh-btn" onclick="fetchSystemStats()" style="width: auto; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
-            🔄 Refresh All Stats
-        </button>
         
         <div class="info">
-            ✨ Enter your question and select a department or enter a custom key to get an answer from the system
+            ✨ Enter your question and select a department to get an answer from the system
         </div>
         
         <form id="queryForm">
             <div class="form-group">
                 <label for="question">📝 Question:</label>
-                <textarea 
-                    id="question" 
-                    placeholder="Example: What is the periodic maintenance policy?"
-                    required
-                >What is the periodic maintenance policy?</textarea>
-            </div>
-            
-            <div class="form-group">
-                <label>🔑 Token Input Method:</label>
-                <div class="token-mode">
-                    <label>
-                        <input type="radio" name="tokenMode" value="select" checked>
-                        Select from department list
-                    </label>
-                    <label>
-                        <input type="radio" name="tokenMode" value="custom">
-                        Enter custom key
-                    </label>
+                <div class="query-box-container">
+                    <textarea 
+                        id="question" 
+                        class="query-textarea"
+                        placeholder="Type your question here... (Press Enter to send or click the send button)"
+                        required
+                    >What is the periodic maintenance policy?</textarea>
+                    <button type="submit" class="send-button" id="sendBtn" title="Send Query (Enter)">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
                 </div>
+                <div class="query-hint">💡 Tip: Press Enter to send, or Shift+Enter for new line</div>
             </div>
 
             <div class="form-group">
-                <div id="selectMode" class="token-input-group active">
-                    <label for="departmentSelect">📂 Select Department/Token:</label>
-                    <select id="departmentSelect">
-                        <option value="">-- Select Department --</option>
-                        <option value="API_KEY_IT">IT (Information Technology)</option>
-                        <option value="API_KEY_EMD">EMD (Electrical Department)</option>
-                        <option value="API_KEY_HR">HR (Human Resources)</option>
-                        <option value="API_KEY_MPO">MPO (Main Plant Operation)</option>
-                        <option value="API_KEY_P">Performance</option>
-                        <option value="API_KEY_MH">MH (Material Handling)</option>
-                        <option value="ADMIN_KEY_MULTI">Admin (Multi-Department Access)</option>
-                    </select>
-                </div>
-
-                <div id="customMode" class="token-input-group">
-                    <label for="customToken">🔐 Enter Custom Key:</label>
-                    <input 
-                        type="text" 
-                        id="customToken" 
-                        placeholder="API_KEY_XXXXX FOR YOUR DEPARTMENT"
-                    >
-                </div>
+                <label for="departmentSelect">📂 Select Department/Token:</label>
+                <select id="departmentSelect" required>
+                    <option value="">-- Select Department --</option>
+                    <option value="API_KEY_IT">IT (Information Technology)</option>
+                    <option value="API_KEY_EMD">EMD (Electrical Department)</option>
+                    <option value="API_KEY_HR">HR (Human Resources)</option>
+                    <option value="  "> General</option>
+                    <option value="API_KEY_MPO">MPO (Main Plant Operation)</option>
+                    <option value="API_KEY_P">Performance</option>
+                    <option value="API_KEY_MH">MH (Material Handling)</option>
+                    <option value="ADMIN_KEY_MULTI">Admin (Multi-Department Access)</option>
+                </select>
             </div>
 
             <!-- Admin Department Selection -->
@@ -555,7 +477,11 @@
                     </div>
                     <div class="dept-checkbox-item">
                         <input type="checkbox" id="dept_HR" value="HR">
-                        <label for="dept_HR">HR</label>    
+                        <label for="dept_HR">HR</label>
+                    </div>
+                    <div class="dept-checkbox-item">
+                        <input type="checkbox" id="dept_General" value="General">
+                        <label for="dept_General">General</label>        
                     </div>
                     <div class="dept-checkbox-item">
                         <input type="checkbox" id="dept_MPO" value="main plant operation">
@@ -574,21 +500,6 @@
                     <strong>Selected:</strong> <span id="selectedDeptsList">None</span>
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label for="topK">📊 Number of Results (similarity_top_k):</label>
-                <input 
-                    type="number" 
-                    id="topK" 
-                    value="5"
-                    min="1"
-                    max="20"
-                >
-            </div>
-            
-            <button type="submit" id="submitBtn">
-                Send Query
-            </button>
         </form>
         
         <div id="loading" class="loading" style="display: none;">
@@ -607,7 +518,7 @@
     </div>
 
     <script>
-        const API_BASE_URL = 'https://azshjdxvzz63mt-8005.proxy.runpod.net';
+        const API_BASE_URL = 'https://azshjdxvzz63mt-8002.proxy.runpod.net';
 
         // System Monitoring Functions
         async function fetchSystemStats() {
@@ -616,70 +527,58 @@
                 if (!response.ok) throw new Error('Failed to fetch system stats');
                 
                 const data = await response.json();
-                updateSystemDisplay(data);
+                updateCompactSystemDisplay(data);
                 
-                // Update all status badges to online
-                document.getElementById('gpuStatus').className = 'status-badge online';
-                document.getElementById('gpuStatus').textContent = 'Online';
-                document.getElementById('ramStatus').className = 'status-badge online';
-                document.getElementById('ramStatus').textContent = 'Online';
-                document.getElementById('cpuStatus').className = 'status-badge online';
-                document.getElementById('cpuStatus').textContent = 'Online';
+                // Update status indicators
+                document.getElementById('gpuStatusDot').className = 'status-indicator online';
+                document.getElementById('ramStatusDot').className = 'status-indicator online';
+                document.getElementById('cpuStatusDot').className = 'status-indicator online';
                 
-                // Hide error messages
-                document.getElementById('gpuError').style.display = 'none';
-                document.getElementById('ramError').style.display = 'none';
-                document.getElementById('cpuError').style.display = 'none';
+                // Hide error message
+                document.getElementById('systemError').style.display = 'none';
             } catch (error) {
                 console.error('System stats error:', error);
                 
-                // Update all status badges to offline
-                document.getElementById('gpuStatus').className = 'status-badge offline';
-                document.getElementById('gpuStatus').textContent = 'Offline';
-                document.getElementById('ramStatus').className = 'status-badge offline';
-                document.getElementById('ramStatus').textContent = 'Offline';
-                document.getElementById('cpuStatus').className = 'status-badge offline';
-                document.getElementById('cpuStatus').textContent = 'Offline';
+                // Update status indicators to offline
+                document.getElementById('gpuStatusDot').className = 'status-indicator offline';
+                document.getElementById('ramStatusDot').className = 'status-indicator offline';
+                document.getElementById('cpuStatusDot').className = 'status-indicator offline';
                 
                 // Show error message
-                const errorMsg = '⚠️ Unable to fetch system stats: ' + error.message;
-                document.getElementById('gpuError').textContent = errorMsg;
-                document.getElementById('gpuError').style.display = 'block';
+                const errorMsg = '⚠️ Unable to fetch system stats';
+                document.getElementById('systemError').textContent = errorMsg;
+                document.getElementById('systemError').style.display = 'block';
             }
         }
 
-        function updateSystemDisplay(data) {
+        function updateCompactSystemDisplay(data) {
             // Update GPU stats
             if (data.gpu) {
-                document.getElementById('vramUsed').textContent = `${data.gpu.memory.used_percent}%`;
-                document.getElementById('vramTotal').textContent = `${data.gpu.memory.used_gb} / ${data.gpu.memory.total_gb} GB`;
-                document.getElementById('vramProgress').style.width = `${data.gpu.memory.used_percent}%`;
-                document.getElementById('gpuUtil').textContent = `${data.gpu.utilization.gpu_percent}%`;
-                document.getElementById('gpuUtilProgress').style.width = `${data.gpu.utilization.gpu_percent}%`;
-                document.getElementById('gpuTemp').textContent = `${data.gpu.temperature_celsius}°C`;
+                document.getElementById('gpuUtilCompact').textContent = `${data.gpu.utilization.gpu_percent}%`;
+                document.getElementById('vramCompact').textContent = `${data.gpu.memory.used_gb} / ${data.gpu.memory.total_gb} GB`;
+                document.getElementById('vramProgressCompact').style.width = `${data.gpu.memory.used_percent}%`;
             }
 
             // Update RAM stats
             if (data.ram) {
-                document.getElementById('ramUsed').textContent = `${data.ram.used_percent}%`;
-                document.getElementById('ramTotal').textContent = `${data.ram.used_gb} / ${data.ram.total_gb} GB`;
-                document.getElementById('ramProgress').style.width = `${data.ram.used_percent}%`;
-                document.getElementById('ramFree').textContent = `${data.ram.free_gb} GB`;
+                document.getElementById('ramUsedCompact').textContent = `${data.ram.used_percent}%`;
+                document.getElementById('ramTotalCompact').textContent = `${data.ram.used_gb} / ${data.ram.total_gb} GB`;
+                document.getElementById('ramProgressCompact').style.width = `${data.ram.used_percent}%`;
             }
 
             // Update CPU stats
             if (data.cpu) {
-                document.getElementById('cpuUsage').textContent = `${data.cpu.usage_percent}%`;
-                document.getElementById('cpuProgress').style.width = `${data.cpu.usage_percent}%`;
-                document.getElementById('cpuCores').textContent = data.cpu.cores;
+                document.getElementById('cpuUsageCompact').textContent = `${data.cpu.usage_percent}%`;
+                document.getElementById('cpuCoresCompact').textContent = `${data.cpu.cores} cores`;
+                document.getElementById('cpuProgressCompact').style.width = `${data.cpu.usage_percent}%`;
             }
         }
 
-        // Auto-refresh system stats every 2 seconds
+        // Auto-refresh system stats every 3 seconds
         let systemRefreshInterval;
         function startSystemMonitoring() {
             fetchSystemStats(); // Initial fetch
-            systemRefreshInterval = setInterval(fetchSystemStats, 2000);
+            systemRefreshInterval = setInterval(fetchSystemStats, 3000);
         }
 
         function stopSystemMonitoring() {
@@ -696,6 +595,7 @@
         const deptCheckboxes = document.querySelectorAll('.dept-checkbox-item input[type="checkbox"]');
         const selectedDeptsList = document.getElementById('selectedDeptsList');
         const adminDeptSelection = document.getElementById('adminDeptSelection');
+        const departmentSelect = document.getElementById('departmentSelect');
         
         // Update selected departments display
         function updateSelectedDepts() {
@@ -721,23 +621,9 @@
             return token === 'ADMIN_KEY_MULTI' || token.startsWith('ADMIN_KEY') || token.startsWith('ADMIN');
         }
 
-        // Control token input method display
-        const tokenModeRadios = document.querySelectorAll('input[name="tokenMode"]');
-        const selectMode = document.getElementById('selectMode');
-        const customMode = document.getElementById('customMode');
-        const departmentSelect = document.getElementById('departmentSelect');
-        const customToken = document.getElementById('customToken');
-
         // Show/hide admin department selection
         function checkAndShowAdminSelection() {
-            const selectedMode = document.querySelector('input[name="tokenMode"]:checked').value;
-            let token = '';
-            
-            if (selectedMode === 'select') {
-                token = departmentSelect.value;
-            } else {
-                token = customToken.value.trim();
-            }
+            const token = departmentSelect.value;
 
             if (isAdminToken(token)) {
                 adminDeptSelection.classList.add('active');
@@ -747,19 +633,15 @@
         }
 
         departmentSelect.addEventListener('change', checkAndShowAdminSelection);
-        customToken.addEventListener('input', checkAndShowAdminSelection);
 
-        tokenModeRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.value === 'select') {
-                    selectMode.classList.add('active');
-                    customMode.classList.remove('active');
-                } else {
-                    selectMode.classList.remove('active');
-                    customMode.classList.add('active');
-                }
-                checkAndShowAdminSelection();
-            });
+        // Handle Enter key in textarea
+        const questionTextarea = document.getElementById('question');
+        questionTextarea.addEventListener('keydown', (e) => {
+            // Submit on Enter (without Shift)
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('queryForm').dispatchEvent(new Event('submit'));
+            }
         });
 
         // Handle form submission
@@ -769,7 +651,7 @@
         const sourcesDiv = document.getElementById('sources');
         const errorDiv = document.getElementById('error');
         const loadingDiv = document.getElementById('loading');
-        const submitBtn = document.getElementById('submitBtn');
+        const sendBtn = document.getElementById('sendBtn');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -778,33 +660,17 @@
             resultDiv.classList.remove('show');
             errorDiv.style.display = 'none';
             loadingDiv.style.display = 'block';
-            submitBtn.disabled = true;
+            sendBtn.disabled = true;
             
             const question = document.getElementById('question').value;
-            const topK = parseInt(document.getElementById('topK').value);
+            const token = departmentSelect.value;
             
-            // Get token based on selected method
-            let token;
-            const selectedMode = document.querySelector('input[name="tokenMode"]:checked').value;
-            
-            if (selectedMode === 'select') {
-                token = departmentSelect.value;
-                if (!token) {
-                    errorDiv.textContent = '❌ Please select a department from the list';
-                    errorDiv.style.display = 'block';
-                    loadingDiv.style.display = 'none';
-                    submitBtn.disabled = false;
-                    return;
-                }
-            } else {
-                token = customToken.value.trim();
-                if (!token) {
-                    errorDiv.textContent = '❌ Please enter a custom key';
-                    errorDiv.style.display = 'block';
-                    loadingDiv.style.display = 'none';
-                    submitBtn.disabled = false;
-                    return;
-                }
+            if (!token) {
+                errorDiv.textContent = '❌ Please select a department from the list';
+                errorDiv.style.display = 'block';
+                loadingDiv.style.display = 'none';
+                sendBtn.disabled = false;
+                return;
             }
 
             // Check if admin and get selected departments
@@ -820,159 +686,141 @@
                     errorDiv.textContent = '❌ Admin must select at least one department';
                     errorDiv.style.display = 'block';
                     loadingDiv.style.display = 'none';
-                    submitBtn.disabled = false;
+                    sendBtn.disabled = false;
                     return;
                 }
             }
             
             try {
-                // If admin with multiple departments, send multiple requests
-                if (isAdmin && departments.length > 1) {
-                    await handleMultipleDepartmentQuery(token, question, topK, departments);
-                } else {
-                    // Single department query
-                    const requestBody = {
-                        question: question,
-                        similarity_top_k: topK
-                    };
+                // Build request body
+                const requestBody = {
+                    question: question,
+                    similarity_top_k: 5  // Default value
+                };
 
-                    // Add department if admin
-                    if (isAdmin && departments.length === 1) {
-                        requestBody.department = departments[0];
-                    }
-
-                    const response = await fetch(`${API_BASE_URL}/v1/query`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(requestBody)
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (!response.ok) {
-                        throw new Error(data.detail || 'An error occurred with the request');
-                    }
-                    
-                    displaySingleResult(data, isAdmin && departments.length === 1 ? departments[0] : null);
+                // Add departments if admin (single or multiple)
+                if (isAdmin && departments.length > 0) {
+                    // اسم الحقل "department" (مفرد) لمطابقة السيرفر
+                    requestBody.department = departments;
                 }
+
+                // 🔍 Debug: Log request
+                console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                console.log('📤 REQUEST SENT TO SERVER:');
+                console.log('URL:', `${API_BASE_URL}/v1/query`);
+                console.log('Token:', token);
+                console.log('Body:', JSON.stringify(requestBody, null, 2));
+                console.log('Note: Field name is "department" (singular) to match server schema');
+                console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+                // إرسال طلب واحد فقط
+                const response = await fetch(`${API_BASE_URL}/v1/query`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const data = await response.json();
+                
+                // 🔍 Debug: Log response
+                console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                console.log('📥 RESPONSE FROM SERVER:');
+                console.log('Status:', response.status);
+                console.log('Data:', JSON.stringify(data, null, 2));
+                if (data.sources) {
+                    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    console.log('📚 SOURCES ANALYSIS:');
+                    const sourceDepts = data.sources.map(s => s.department || 'Unknown');
+                    const uniqueDepts = [...new Set(sourceDepts)];
+                    console.log('Requested Departments:', departments);
+                    console.log('Departments in Sources:', uniqueDepts);
+                    console.log('Unexpected Departments:', uniqueDepts.filter(d => !departments.includes(d)));
+                }
+                console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                
+                if (!response.ok) {
+                    throw new Error(data.detail || 'An error occurred with the request');
+                }
+                
+                // عرض النتيجة
+                displayResult(data, isAdmin ? departments : null);
                 
             } catch (error) {
                 errorDiv.textContent = '❌ Error: ' + error.message;
                 errorDiv.style.display = 'block';
             } finally {
                 loadingDiv.style.display = 'none';
-                submitBtn.disabled = false;
+                sendBtn.disabled = false;
             }
         });
 
-        async function handleMultipleDepartmentQuery(token, question, topK, departments) {
-            const results = [];
-            
-            for (const dept of departments) {
-                try {
-                    const response = await fetch(`${API_BASE_URL}/v1/query`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            question: question,
-                            department: dept,
-                            similarity_top_k: topK
-                        })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        results.push({ department: dept, data: data, success: true });
-                    } else {
-                        results.push({ department: dept, error: data.detail, success: false });
-                    }
-                } catch (error) {
-                    results.push({ department: dept, error: error.message, success: false });
-                }
-            }
-            
-            displayMultipleResults(results);
-        }
-
-        function displaySingleResult(data, departmentName = null) {
-            // Display answer with department name if provided
+        function displayResult(data, departments = null) {
+            // Display answer
             let answerHTML = data.answer || 'No answer available';
-            if (departmentName) {
+            
+            // إضافة شارات الأقسام إذا كان admin مع أقسام متعددة
+            if (departments && departments.length > 0) {
+                const deptBadges = departments.map(dept => 
+                    `<span class="selected-dept-tag">${dept}</span>`
+                ).join('');
                 answerHTML = `
                     <div style="margin-bottom: 10px;">
-                        <span style="background: #667eea; color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px;">
-                            ${departmentName}
-                        </span>
+                        <strong>Queried Departments:</strong> ${deptBadges}
                     </div>
+                    <hr style="margin: 10px 0; border: none; border-top: 1px solid #e0e0e0;">
                     ${answerHTML}
                 `;
             }
+            
             answerDiv.innerHTML = answerHTML;
             
             // Display sources
             if (data.sources && data.sources.length > 0) {
-                sourcesDiv.innerHTML = data.sources.map((source, idx) => `
-                    <div class="source-item">
-                        <strong>Source ${idx + 1}:</strong><br>
-                        📄 File: ${source.file_name || 'Not specified'}<br>
-                        📄 Page: ${source.page_label || 'Not specified'}<br>
-                        ${source.score ? `⭐ Score: ${source.score.toFixed(3)}` : ''}
-                    </div>
-                `).join('');
+                sourcesDiv.innerHTML = data.sources.map((source, idx) => {
+                    // عرض القسم إذا كان موجودًا في المصدر
+                    const sourceDept = source.department || 'Unknown';
+                    
+                    // 🔍 Check if source is from unexpected department
+                    const isUnexpected = departments && departments.length > 0 && !departments.includes(sourceDept);
+                    
+                    const deptInfo = source.department 
+                        ? `<br>📂 Department: <span class="dept-badge" style="${isUnexpected ? 'background: #f44336; animation: blink 1s infinite;' : ''}">${source.department}${isUnexpected ? ' ⚠️ UNEXPECTED!' : ''}</span>` 
+                        : '';
+                    
+                    return `
+                        <div class="source-item" style="${isUnexpected ? 'border: 2px solid #f44336; background: #ffebee;' : ''}">
+                            <strong>Source ${idx + 1}:</strong>${deptInfo}<br>
+                            📄 File: ${source.file_name || 'Not specified'}<br>
+                            📄 Page: ${source.page_label || 'Not specified'}<br>
+                            ${source.score ? `⭐ Score: ${source.score.toFixed(3)}` : ''}
+                            ${isUnexpected ? '<br><span style="color: #f44336; font-weight: bold;">⚠️ This source is from an unqueried department!</span>' : ''}
+                        </div>
+                    `;
+                }).join('');
+                
+                // Add warning if any unexpected sources found
+                if (departments && departments.length > 0) {
+                    const unexpectedCount = data.sources.filter(s => {
+                        const sourceDept = s.department || 'Unknown';
+                        return !departments.includes(sourceDept);
+                    }).length;
+                    
+                    if (unexpectedCount > 0) {
+                        sourcesDiv.innerHTML = `
+                            <div style="background: #ffebee; border: 2px solid #f44336; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+                                <strong style="color: #f44336;">⚠️ WARNING: ${unexpectedCount} source(s) from unexpected departments!</strong><br>
+                                <span style="font-size: 13px;">This is likely a SERVER-SIDE issue with department filtering.</span>
+                            </div>
+                        ` + sourcesDiv.innerHTML;
+                    }
+                }
             } else {
                 sourcesDiv.innerHTML = '<p>No sources available</p>';
             }
             
-            resultDiv.classList.add('show');
-        }
-
-        function displayMultipleResults(results) {
-            let answerHTML = '';
-            let sourcesHTML = '';
-            
-            results.forEach(result => {
-                if (result.success) {
-                    answerHTML += `
-                        <div style="margin-bottom: 20px; padding: 15px; background: #f0f0f0; border-radius: 6px;">
-                            <h4 style="color: #667eea; margin-bottom: 10px;">
-                                📂 Department: ${result.department}
-                            </h4>
-                            <p>${result.data.answer || 'No answer available'}</p>
-                        </div>
-                    `;
-                    
-                    if (result.data.sources && result.data.sources.length > 0) {
-                        sourcesHTML += `<h4 style="color: #667eea; margin-top: 15px; margin-bottom: 10px;">📂 ${result.department}</h4>`;
-                        sourcesHTML += result.data.sources.map((source, idx) => `
-                            <div class="source-item">
-                                <strong>Source ${idx + 1}:</strong><br>
-                                📄 File: ${source.file_name || 'Not specified'}<br>
-                                📄 Page: ${source.page_label || 'Not specified'}<br>
-                                ${source.score ? `⭐ Score: ${source.score.toFixed(3)}` : ''}
-                            </div>
-                        `).join('');
-                    }
-                } else {
-                    answerHTML += `
-                        <div style="margin-bottom: 20px; padding: 15px; background: #fee; border-radius: 6px;">
-                            <h4 style="color: #c33; margin-bottom: 10px;">
-                                📂 Department: ${result.department}
-                            </h4>
-                            <p>❌ Error: ${result.error}</p>
-                        </div>
-                    `;
-                }
-            });
-            
-            answerDiv.innerHTML = answerHTML;
-            sourcesDiv.innerHTML = sourcesHTML || '<p>No sources available</p>';
             resultDiv.classList.add('show');
         }
     </script>
