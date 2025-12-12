@@ -33,6 +33,107 @@
             text-align: center;
         }
 
+        /* Server Selection Panel */
+        .server-selection-panel {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .server-selection-header {
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .server-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .server-option {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            color: white;
+            font-size: 13px;
+        }
+
+        .server-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .server-option.active {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .server-option-label {
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .server-option-url {
+            font-size: 11px;
+            opacity: 0.8;
+            word-break: break-all;
+        }
+
+        .server-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .server-option.active .server-indicator {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+            }
+            50% { 
+                opacity: 0.6;
+                box-shadow: 0 0 2px #fff;
+            }
+        }
+
+        .current-server-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-server-display strong {
+            color: #fff;
+        }
+
         /* Compact System Monitor */
         .system-monitor-compact {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -274,6 +375,22 @@
             font-size: 14px;
         }
 
+        .query-all-depts-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .query-all-depts-btn:hover {
+            background: #45a049;
+        }
+
         .selected-depts-display {
             margin-top: 10px;
             padding: 10px;
@@ -290,6 +407,11 @@
             border-radius: 12px;
             margin: 4px;
             font-size: 12px;
+        }
+
+        .all-depts-tag {
+            background: #4CAF50;
+            font-weight: bold;
         }
         
         .result {
@@ -377,6 +499,67 @@
     <div class="container">
         <h1>🔍 RAG System API Test</h1>
 
+        <!-- Server Selection Panel -->
+        <div class="server-selection-panel">
+            <div class="server-selection-header">
+                <span>🌐</span>
+                <span>Server Selection</span>
+            </div>
+            <div class="server-selection-grid">
+                <div class="server-option active" data-server="default" data-url="https://azshjdxvzz63mt-8000.proxy.runpod.net">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Main Server (Nginx)
+                    </div>
+                    <div class="server-option-url">Port 8000 - Default</div>
+                </div>
+                
+                <div class="server-option" data-server="main-direct" data-url="https://azshjdxvzz63mt-8005.proxy.runpod.net">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Main Server (Direct)
+                    </div>
+                    <div class="server-option-url">Port 8080 (Temporary 8005)</div>
+                </div>
+                
+                <div class="server-option" data-server="testing-nginx" data-url="http://194.68.245.144:22099">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Testing Server (Nginx)
+                    </div>
+                    <div class="server-option-url">Port 9000</div>
+                </div>
+                
+                <div class="server-option" data-server="testing-direct" data-url="http://194.68.245.144:22108">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Testing Server (Direct)
+                    </div>
+                    <div class="server-option-url">Port 9090</div>
+                </div>
+                
+                <div class="server-option" data-server="local-nginx" data-url="http://localhost:9000">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Local Server (Nginx)
+                    </div>
+                    <div class="server-option-url">Port 9000 - Local</div>
+                </div>
+                
+                <div class="server-option" data-server="local-direct" data-url="http://localhost:9090">
+                    <div class="server-option-label">
+                        <span class="server-indicator"></span>
+                        Local Server (Direct)
+                    </div>
+                    <div class="server-option-url">Port 9090 - Local</div>
+                </div>
+            </div>
+            <div class="current-server-display">
+                <strong>🎯 Current Server:</strong>
+                <span id="currentServerUrl">https://azshjdxvzz63mt-8000.proxy.runpod.net</span>
+            </div>
+        </div>
+
         <!-- Compact System Monitor -->
         <div class="system-monitor-compact">
             <div class="monitor-grid">
@@ -452,7 +635,7 @@
                     <option value="API_KEY_IT">IT (Information Technology)</option>
                     <option value="API_KEY_EMD">EMD (Electrical Department)</option>
                     <option value="API_KEY_HR">HR (Human Resources)</option>
-                    <option value="  "> General</option>
+                    <option value="API_KEY_GN">General</option>
                     <option value="API_KEY_MPO">MPO (Main Plant Operation)</option>
                     <option value="API_KEY_P">Performance</option>
                     <option value="API_KEY_MH">MH (Material Handling)</option>
@@ -463,9 +646,14 @@
             <!-- Admin Department Selection -->
             <div id="adminDeptSelection" class="admin-dept-selection">
                 <div class="admin-notice">
-                    👑 Admin Mode: Select one or more departments to query
+                    👑 Admin Mode: Select departments to query, or leave empty to query ALL departments
                 </div>
-                <label>Select Departments to Query:</label>
+                
+                <button type="button" class="query-all-depts-btn" id="queryAllDeptsBtn">
+                    🌍 Query All Departments (Leave Empty)
+                </button>
+                
+                <label>Or Select Specific Departments:</label>
                 <div class="dept-checkboxes">
                     <div class="dept-checkbox-item">
                         <input type="checkbox" id="dept_IT" value="IT">
@@ -480,7 +668,7 @@
                         <label for="dept_HR">HR</label>
                     </div>
                     <div class="dept-checkbox-item">
-                        <input type="checkbox" id="dept_General" value="General">
+                        <input type="checkbox" id="dept_General" value="general">
                         <label for="dept_General">General</label>        
                     </div>
                     <div class="dept-checkbox-item">
@@ -497,7 +685,7 @@
                     </div>
                 </div>
                 <div class="selected-depts-display" id="selectedDeptsDisplay">
-                    <strong>Selected:</strong> <span id="selectedDeptsList">None</span>
+                    <strong>Selected:</strong> <span id="selectedDeptsList">None (Will query ALL departments)</span>
                 </div>
             </div>
         </form>
@@ -518,7 +706,64 @@
     </div>
 
     <script>
-        const API_BASE_URL = 'https://azshjdxvzz63mt-8005.proxy.runpod.net';
+        // Server Management
+        let API_BASE_URL = 'https://azshjdxvzz63mt-8000.proxy.runpod.net';
+        
+        // Load saved server from localStorage
+        function loadSavedServer() {
+            const savedServer = localStorage.getItem('selectedServer');
+            const savedUrl = localStorage.getItem('selectedServerUrl');
+            
+            if (savedServer && savedUrl) {
+                API_BASE_URL = savedUrl;
+                
+                // Update UI
+                document.querySelectorAll('.server-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.server === savedServer) {
+                        opt.classList.add('active');
+                    }
+                });
+                
+                document.getElementById('currentServerUrl').textContent = savedUrl;
+            }
+        }
+
+        // Server selection handler
+        document.querySelectorAll('.server-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const serverKey = this.dataset.server;
+                const serverUrl = this.dataset.url;
+                
+                // Save to localStorage
+                localStorage.setItem('selectedServer', serverKey);
+                localStorage.setItem('selectedServerUrl', serverUrl);
+                
+                // Update API_BASE_URL
+                API_BASE_URL = serverUrl;
+                
+                // Update UI
+                document.querySelectorAll('.server-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                document.getElementById('currentServerUrl').textContent = serverUrl;
+                
+                // Stop current monitoring
+                stopSystemMonitoring();
+                
+                // Refresh system stats with new server
+                setTimeout(() => {
+                    startSystemMonitoring();
+                }, 500);
+                
+                console.log(`🔄 Server switched to: ${serverUrl}`);
+            });
+        });
+
+        // Load saved server on page load
+        loadSavedServer();
 
         // System Monitoring Functions
         async function fetchSystemStats() {
@@ -596,7 +841,14 @@
         const selectedDeptsList = document.getElementById('selectedDeptsList');
         const adminDeptSelection = document.getElementById('adminDeptSelection');
         const departmentSelect = document.getElementById('departmentSelect');
+        const queryAllDeptsBtn = document.getElementById('queryAllDeptsBtn');
         
+        // Clear all checkboxes when "Query All" button is clicked
+        queryAllDeptsBtn.addEventListener('click', () => {
+            deptCheckboxes.forEach(cb => cb.checked = false);
+            updateSelectedDepts();
+        });
+
         // Update selected departments display
         function updateSelectedDepts() {
             const selected = Array.from(deptCheckboxes)
@@ -604,7 +856,7 @@
                 .map(cb => cb.nextElementSibling.textContent);
             
             if (selected.length === 0) {
-                selectedDeptsList.innerHTML = 'None';
+                selectedDeptsList.innerHTML = '<span class="selected-dept-tag all-depts-tag">🌍 ALL Departments</span>';
             } else {
                 selectedDeptsList.innerHTML = selected.map(dept => 
                     `<span class="selected-dept-tag">${dept}</span>`
@@ -627,6 +879,7 @@
 
             if (isAdminToken(token)) {
                 adminDeptSelection.classList.add('active');
+                updateSelectedDepts();
             } else {
                 adminDeptSelection.classList.remove('active');
             }
@@ -637,7 +890,6 @@
         // Handle Enter key in textarea
         const questionTextarea = document.getElementById('question');
         questionTextarea.addEventListener('keydown', (e) => {
-            // Submit on Enter (without Shift)
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 document.getElementById('queryForm').dispatchEvent(new Event('submit'));
@@ -656,7 +908,6 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Hide previous results
             resultDiv.classList.remove('show');
             errorDiv.style.display = 'none';
             loadingDiv.style.display = 'block';
@@ -673,7 +924,6 @@
                 return;
             }
 
-            // Check if admin and get selected departments
             const isAdmin = isAdminToken(token);
             let departments = [];
 
@@ -681,39 +931,32 @@
                 departments = Array.from(deptCheckboxes)
                     .filter(cb => cb.checked)
                     .map(cb => cb.value);
-                
-                if (departments.length === 0) {
-                    errorDiv.textContent = '❌ Admin must select at least one department';
-                    errorDiv.style.display = 'block';
-                    loadingDiv.style.display = 'none';
-                    sendBtn.disabled = false;
-                    return;
-                }
             }
             
             try {
-                // Build request body
                 const requestBody = {
                     question: question,
-                    similarity_top_k: 5  // Default value
+                    similarity_top_k: 5
                 };
 
-                // Add departments if admin (single or multiple)
-                if (isAdmin && departments.length > 0) {
-                    // اسم الحقل "department" (مفرد) لمطابقة السيرفر
+                if (isAdmin) {
                     requestBody.department = departments;
                 }
 
-                // 🔍 Debug: Log request
                 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
                 console.log('📤 REQUEST SENT TO SERVER:');
                 console.log('URL:', `${API_BASE_URL}/v1/query`);
                 console.log('Token:', token);
                 console.log('Body:', JSON.stringify(requestBody, null, 2));
-                console.log('Note: Field name is "department" (singular) to match server schema');
+                if (isAdmin) {
+                    if (departments.length === 0) {
+                        console.log('⚠️ Admin querying ALL departments (empty list sent)');
+                    } else {
+                        console.log(`✅ Admin querying specific departments: ${departments.join(', ')}`);
+                    }
+                }
                 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
-                // إرسال طلب واحد فقط
                 const response = await fetch(`${API_BASE_URL}/v1/query`, {
                     method: 'POST',
                     headers: {
@@ -725,19 +968,19 @@
                 
                 const data = await response.json();
                 
-                // 🔍 Debug: Log response
                 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
                 console.log('📥 RESPONSE FROM SERVER:');
                 console.log('Status:', response.status);
                 console.log('Data:', JSON.stringify(data, null, 2));
+                if (data.departments) {
+                    console.log('Queried Departments:', data.departments);
+                }
                 if (data.sources) {
                     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
                     console.log('📚 SOURCES ANALYSIS:');
                     const sourceDepts = data.sources.map(s => s.department || 'Unknown');
                     const uniqueDepts = [...new Set(sourceDepts)];
-                    console.log('Requested Departments:', departments);
                     console.log('Departments in Sources:', uniqueDepts);
-                    console.log('Unexpected Departments:', uniqueDepts.filter(d => !departments.includes(d)));
                 }
                 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
                 
@@ -745,8 +988,7 @@
                     throw new Error(data.detail || 'An error occurred with the request');
                 }
                 
-                // عرض النتيجة
-                displayResult(data, isAdmin ? departments : null);
+                displayResult(data, isAdmin ? (departments.length > 0 ? departments : null) : null);
                 
             } catch (error) {
                 errorDiv.textContent = '❌ Error: ' + error.message;
@@ -758,11 +1000,17 @@
         });
 
         function displayResult(data, departments = null) {
-            // Display answer
             let answerHTML = data.answer || 'No answer available';
             
-            // إضافة شارات الأقسام إذا كان admin مع أقسام متعددة
-            if (departments && departments.length > 0) {
+            if (departments === null) {
+                answerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>Queried Departments:</strong> <span class="selected-dept-tag all-depts-tag">🌍 ALL Departments</span>
+                    </div>
+                    <hr style="margin: 10px 0; border: none; border-top: 1px solid #e0e0e0;">
+                    ${answerHTML}
+                `;
+            } else if (departments && departments.length > 0) {
                 const deptBadges = departments.map(dept => 
                     `<span class="selected-dept-tag">${dept}</span>`
                 ).join('');
@@ -777,46 +1025,21 @@
             
             answerDiv.innerHTML = answerHTML;
             
-            // Display sources
             if (data.sources && data.sources.length > 0) {
                 sourcesDiv.innerHTML = data.sources.map((source, idx) => {
-                    // عرض القسم إذا كان موجودًا في المصدر
-                    const sourceDept = source.department || 'Unknown';
-                    
-                    // 🔍 Check if source is from unexpected department
-                    const isUnexpected = departments && departments.length > 0 && !departments.includes(sourceDept);
-                    
                     const deptInfo = source.department 
-                        ? `<br>📂 Department: <span class="dept-badge" style="${isUnexpected ? 'background: #f44336; animation: blink 1s infinite;' : ''}">${source.department}${isUnexpected ? ' ⚠️ UNEXPECTED!' : ''}</span>` 
+                        ? `<br>📂 Department: <span class="dept-badge">${source.department}</span>` 
                         : '';
                     
                     return `
-                        <div class="source-item" style="${isUnexpected ? 'border: 2px solid #f44336; background: #ffebee;' : ''}">
+                        <div class="source-item">
                             <strong>Source ${idx + 1}:</strong>${deptInfo}<br>
                             📄 File: ${source.file_name || 'Not specified'}<br>
                             📄 Page: ${source.page_label || 'Not specified'}<br>
                             ${source.score ? `⭐ Score: ${source.score.toFixed(3)}` : ''}
-                            ${isUnexpected ? '<br><span style="color: #f44336; font-weight: bold;">⚠️ This source is from an unqueried department!</span>' : ''}
                         </div>
                     `;
                 }).join('');
-                
-                // Add warning if any unexpected sources found
-                if (departments && departments.length > 0) {
-                    const unexpectedCount = data.sources.filter(s => {
-                        const sourceDept = s.department || 'Unknown';
-                        return !departments.includes(sourceDept);
-                    }).length;
-                    
-                    if (unexpectedCount > 0) {
-                        sourcesDiv.innerHTML = `
-                            <div style="background: #ffebee; border: 2px solid #f44336; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
-                                <strong style="color: #f44336;">⚠️ WARNING: ${unexpectedCount} source(s) from unexpected departments!</strong><br>
-                                <span style="font-size: 13px;">This is likely a SERVER-SIDE issue with department filtering.</span>
-                            </div>
-                        ` + sourcesDiv.innerHTML;
-                    }
-                }
             } else {
                 sourcesDiv.innerHTML = '<p>No sources available</p>';
             }
@@ -826,4 +1049,3 @@
     </script>
 </body>
 </html>
-
